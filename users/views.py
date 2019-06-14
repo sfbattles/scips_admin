@@ -10,6 +10,7 @@ from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
 def register(request):
     if request.method == 'POST':
         userform = UserRegisterForm(request.POST)
+        print(request.POST)
         if userform.is_valid():
             userform.save()
             username = userform.cleaned_data.get('username')
@@ -17,15 +18,21 @@ def register(request):
             return redirect('login')
     else:
         userform = UserRegisterForm()
+        
     return render(request,'users/register.html', {'form': userform})
     
 @login_required
 def profile(request):
     if request.method == 'POST':
+        print(request.POST)
         user_form = UserUpdateForm(request.POST,instance=request.user)  #this is to pass data to the form to prepopulate the user information
+        if user_form.is_valid():
+            user_form.save()
         profile_form = ProfileUpdateForm(request.POST,
                                          request.FILES,
                                          instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
     else:
         user_form = UserUpdateForm(instance=request.user)  #this is to pass data to the form to prepopulate the user information
         profile_form = ProfileUpdateForm(instance=request.user.profile)

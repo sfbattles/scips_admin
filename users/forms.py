@@ -8,20 +8,22 @@ from .models import Profile
 # 2.  Create class and add the field you want.
 class UserRegisterForm(UserCreationForm):
     email   = forms.EmailField()
-    firstname = forms.CharField(max_length=50)
-    lastname = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=30, label="First Name")
+    last_name = forms.CharField(max_length=30, label="Last Name")
+
     class Meta:
         model = User
-        fields = ['username','password1','password2','firstname','lastname','email']
+        fields = ['username','password1','password2','first_name','last_name','email']
 
 
 class UserUpdateForm(forms.ModelForm):
     email   = forms.EmailField()
-    firstname = forms.CharField(max_length=50)
-    lastname = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=30, label="First Name")
+    last_name = forms.CharField(max_length=30, label="Last Name")
+
     class Meta:
         model = User
-        fields = ['username','firstname','lastname','email']
+        fields = ['username','first_name','last_name','email']
 
 
 class ProfileUpdateForm(forms.ModelForm):
