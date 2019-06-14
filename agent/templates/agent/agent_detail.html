@@ -1,0 +1,15 @@
+{% extends "agent/base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <div class="clearfix">
+                    <span class="float-left">Agent Number:{{ object.agent_no }}</span>
+                    <span class="float-right text-muted small">Master Agent Code: {{ object.agent_master_code }} </span>
+                </div>
+            </div>                
+            <p class="article-content">{{ object.address }}</p>
+            <p class="article-content">{{ object.city }}, {{object.state|upper}} {{ object.zipcode|stringformat:".5s" }}</p>
+        </div>
+    </article>
+{% endblock content %}

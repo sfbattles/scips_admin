@@ -1,7 +1,7 @@
 {% extends "agent/base.html" %}
 {% block content %}
     {% for agent in agents %}
-    <h1><a class="article-title" href="#">{{ agent.name }}</a></h1>
+    <h1><a class="article-title" href="{% url 'agent-detail' agent.id %}">{{ agent.name }}</a></h1>
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
