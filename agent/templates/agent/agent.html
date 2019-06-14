@@ -1,0 +1,19 @@
+{% extends "agent/base.html" %}
+{% block content %}
+    {% for agent in agents %}
+    <h1><a class="article-title" href="#">{{ agent.name }}</a></h1>
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <div class="clearfix">
+                        <span class="float-left"><a class="mr-2" href="#">Agent Number:{{ agent.agent_no }}</a></span>
+                        <span class="float-right text-muted small">Master Agent Code: {{ agent.agent_master_code }} </span>
+                    </div>
+                </div>                
+                <p class="article-content">{{ agent.address }}</p>
+                <p class="article-content">{{ agent.city }}, {{agent.state|upper}} {{ agent.zipcode|stringformat:".5s" }}</p>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
+
