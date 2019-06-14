@@ -9,7 +9,9 @@ from .models import UserAccess
 # will send a signal of post_save and the signal is going to be received 
 # by the function create_profile which has all the arguments that the post_save signal
 # one of the parameter is the instance of the user(begin created) and also if the instance is (created).
-# passed to it
+# passed to it.  
+# *****there needs to be a function names ready(): in apps.py inside
+# UsersConfig to import the signal to the users.
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
