@@ -29,7 +29,7 @@ class AgentMaster(models.Model):
 
 class Agent(models.Model):
     agent_no = models.PositiveIntegerField(unique=True)
-    agent_master_code = models.ForeignKey(AgentMaster, on_delete=models.CASCADE)
+    agent_master_code = models.ForeignKey(AgentMaster, on_delete=models.CASCADE,related_name='agents')
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
@@ -45,7 +45,7 @@ class Agent(models.Model):
     def __str__(self):
         return str(self.agent_no)
 
-    
+   
 
 #this is used to tell django where to go after it creates a agent
 #reverse will tells where to go to find the newly created URL

@@ -4,7 +4,8 @@ from .views import (
     AgentListView,
     AgentDetailView,
     AgentCreateView,
-    AgentUpdateView
+    AgentUpdateView,
+    AgentDeleteView,
 )
 
 urlpatterns = [
@@ -12,7 +13,8 @@ urlpatterns = [
     # running .as_view() 
     path('', AgentListView.as_view(), name="agent-home"),
     path('agent/<int:pk>/', AgentDetailView.as_view(), name="agent-detail"),
-    path('agent/<int:pk>/update', AgentUpdateView.as_view(), name="agent-update"),
+    path('agent/<int:pk>/update/', AgentUpdateView.as_view(), name='agent-update'),
+    path('agent/<int:pk>/delete/', AgentDeleteView.as_view(), name='agent-delete'),
     path('agent/new/', AgentCreateView.as_view(), name="agent-create"),
     path('about/', views.about, name="agent-about"),
 ]

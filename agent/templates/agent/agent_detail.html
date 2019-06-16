@@ -1,5 +1,13 @@
 {% extends "agent/base.html" %}
 {% block content %}
+    <div class="container">
+        <div class="row">
+          <div class="col">
+                {% if user.profile.user_access_id == 3 %}
+                    <a class="btn btn-primary mt-1 mb-3" href="{% url 'agent-create' %}">Add New Agent</a>                
+                {% endif %}    
+          </div>
+        </div>
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
@@ -8,8 +16,14 @@
                     <span class="float-right text-muted small">Master Agent Code: {{ object.agent_master_code }} </span>
                 </div>
             </div>                
+            <p class="article-content">{{ object.name }}</p>
             <p class="article-content">{{ object.address }}</p>
             <p class="article-content">{{ object.city }}, {{object.state|upper}} {{ object.zipcode|stringformat:".5s" }}</p>
+            
+            {% if user.profile.user_access_id == 3 %}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'agent-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'agent-delete' object.id %}">Delete</a>
+            {% endif %}
         </div>
     </article>
 {% endblock content %}

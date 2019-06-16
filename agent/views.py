@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (
                                     ListView,
                                     DetailView,
                                     CreateView,
-                                    UpdateView
+                                    UpdateView,
+                                    DeleteView
                                 )
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -17,6 +18,9 @@ def home(request):
     }
     # print(context)
     return render(request,'agent/agent.html', context)
+
+def main(request):
+    return render(request,'agent/main.html')
 
 # @method_decorator(login_required, name='dispatch')
 class AgentListView(LoginRequiredMixin, ListView):
@@ -41,7 +45,7 @@ class AgentCreateView(LoginRequiredMixin,CreateView):
               'zipcode',
               'status']
 
-class AgentUpdateView(LoginRequiredMixin,UpdateView):
+class AgentUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Agent 
     fields = ['agent_no',
               'agent_master_code',
@@ -51,6 +55,21 @@ class AgentUpdateView(LoginRequiredMixin,UpdateView):
               'state',
               'zipcode',
               'status']
+
+    def test_func(self):
+        # agent = self.get_object() #get current Agent
+        if self.request.user.profile.user_access_id == 3:
+            return True
+        return False
+
+class AgentDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Agent 
+    success_url = '/'
+    def test_func(self):
+        if self.request.user.profile.user_access_id == 3:  #company User
+            return True
+        return False
+
 
 @login_required
 def about(request):
