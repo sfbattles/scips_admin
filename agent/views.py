@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (
                                     ListView,
@@ -10,6 +10,7 @@ from django.views.generic import (
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Agent
+from .models import AgentMaster
 
 @login_required
 def home(request):
@@ -28,11 +29,24 @@ class AgentListView(LoginRequiredMixin, ListView):
     template_name = 'agent/agent.html'  #<app>/<model>_viewtype.html agent/agent_list.html by default
     context_object_name = 'agents'
     ordering = ['name']  
+    paginate_by = 4
+
+class MasterAgentDetailView(LoginRequiredMixin, DetailView):
+    model = Agent
+    template_name = 'agent/master_agent.html'  #<app>/<model>_viewtype.html agent/agent_list.html by default
+    context_object_name = 'agent' 
+    pk_url_kwarg = 'agent_master_code'
+
+    def get_queryset(self):
+        print(f'this is self {self}')
+        print(f'pk_url_kwarg {pk_url_kwarg}')
+        master_agent = get_object_or_404(Agent,id = self.kwargs.get('agent_master_code')) # gets an object
+        return Agent.objects.filter(agent_master_code__master_code = master_agent.id)
 
 # @method_decorator(login_required, name='dispatch')
 class AgentDetailView(LoginRequiredMixin,DetailView):
     model = Agent 
-
+ 
 # @method_decorator(login_required, name='dispatch')
 class AgentCreateView(LoginRequiredMixin,CreateView):
     model = Agent 

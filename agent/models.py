@@ -11,7 +11,6 @@ class PhoneType(models.Model):
 
     def __str__(self):
         return str(self.type)
-
     
 
 class AgentMaster(models.Model):
@@ -45,7 +44,7 @@ class Agent(models.Model):
     def __str__(self):
         return str(self.agent_no)
 
-   
+
 
 #this is used to tell django where to go after it creates a agent
 #reverse will tells where to go to find the newly created URL

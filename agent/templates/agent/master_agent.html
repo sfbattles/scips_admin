@@ -1,0 +1,5 @@
+{% extends "agent/base.html" %}
+{% block content %}
+<h1 class="mb-3">Master Agent {{ view.kwargs.id }}</h1>
+    <h2><a class="article-title" href="{% url 'master-agent' agent_master_code=Agent.master_agent_code %}">{{ agentmaster.name }}</a></h2>
+{% endblock content %}
