@@ -1,5 +1,14 @@
 {% extends "agent/base.html" %}
 {% block content %}
-<h1 class="mb-3">Master Agent {{ view.kwargs.id }}</h1>
-    <h2><a class="article-title" href="{% url 'master-agent' agent_master_code=Agent.master_agent_code %}">{{ agentmaster.name }}</a></h2>
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <div class="clearfix">
+                    <span class="float-left"> Master Agent Code:{{ agentmaster.master_code }}</span>
+                    <span class="float-right text-muted small"> {{ agentmaster.name }}</span>
+            </div>                
+            <p class="article-content">{{ agentmaster.address }}</p>
+            <p class="article-content">{{ agentmaster.city }}, {{agentmaster.state|upper}} {{ agentmaster.zipcode|stringformat:".5s" }}</p>
+        </div>
+    </article>
 {% endblock content %}

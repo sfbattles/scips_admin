@@ -44,13 +44,10 @@ class Agent(models.Model):
     def __str__(self):
         return str(self.agent_no)
 
-
-
 #this is used to tell django where to go after it creates a agent
 #reverse will tells where to go to find the newly created URL
 #kwargs={'pk':self.pk} find the created agent 
 #agent-detail is the route to go to to see the newly created instance
-
     def get_absolute_url(self):
         return reverse('agent-detail',kwargs={'pk':self.pk})
 

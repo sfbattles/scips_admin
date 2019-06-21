@@ -32,16 +32,13 @@ class AgentListView(LoginRequiredMixin, ListView):
     paginate_by = 4
 
 class MasterAgentDetailView(LoginRequiredMixin, DetailView):
-    model = Agent
+    model = AgentMaster
     template_name = 'agent/master_agent.html'  #<app>/<model>_viewtype.html agent/agent_list.html by default
-    context_object_name = 'agent' 
-    pk_url_kwarg = 'agent_master_code'
+    context_object_name = 'agentmaster' 
 
     def get_queryset(self):
-        print(f'this is self {self}')
-        print(f'pk_url_kwarg {pk_url_kwarg}')
-        master_agent = get_object_or_404(Agent,id = self.kwargs.get('agent_master_code')) # gets an object
-        return Agent.objects.filter(agent_master_code__master_code = master_agent.id)
+        master_agent= get_object_or_404(AgentMaster,id=self.kwargs.get('pk')) # gets an object
+        return AgentMaster.objects.filter(id=master_agent.id)
 
 # @method_decorator(login_required, name='dispatch')
 class AgentDetailView(LoginRequiredMixin,DetailView):
