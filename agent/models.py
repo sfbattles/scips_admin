@@ -70,6 +70,7 @@ class AgentPhone(models.Model):
 class AgentEmail(models.Model):
     agent_no = models.ForeignKey(Agent, on_delete=models.CASCADE)
     email = models.EmailField()
+    get_portal_email = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "AgentEmail"
