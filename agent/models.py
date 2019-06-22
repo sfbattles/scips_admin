@@ -23,7 +23,8 @@ class AgentMaster(models.Model):
         db_table = 'AgentMaster'
 
     def __str__(self):
-        return str(self.master_code)
+        # return str(self.master_code)
+        return str(self.id)  # updated so the the query will return the ID and send it in url 
 
 
 class Agent(models.Model):
@@ -53,7 +54,7 @@ class Agent(models.Model):
 
 class AgentPhone(models.Model):
     agent_no = models.ForeignKey(Agent, on_delete=models.CASCADE)
-    phone    = models.CharField(max_length=11)
+    phone    = models.CharField(max_length=11,null=True,blank=True)
     phone_extension = models.CharField(max_length=20,null=True,blank=True)
     phone_type = models.ForeignKey(PhoneType, on_delete=models.CASCADE)
 

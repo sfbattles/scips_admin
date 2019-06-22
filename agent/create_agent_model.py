@@ -10,8 +10,7 @@ with open(file_loc, "r") as csvfile:
     for row in reader:
         print(row['agent_no'],row['agent_master_code'])
         agent_master_obj, created = AgentMaster.objects.get_or_create(
-                    master_code=row['agent_master_code'],
-                )
+                    master_code=row['agent_master_code'])
         p = Agent(agent_no=row['agent_no'],
         
         agent_master_code = agent_master_obj,
