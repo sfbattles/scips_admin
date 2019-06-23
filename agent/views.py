@@ -85,3 +85,14 @@ class AgentDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 @login_required
 def about(request):
     return render(request,'agent/about.html')
+
+    from django.views.generic import TemplateView
+
+# class MultipleModelView(TemplateView):
+#     template_name = 'template.html'
+
+#     def get_context_data(self, **kwargs):
+#          context = super(MultipleModelView, self).get_context_data(**kwargs)
+#          context['modelone'] = ModelOne.objects.get(*query logic*)
+#          context['modeltwo'] = ModelTwo.objects.get(*query logic*)
+#          return context
