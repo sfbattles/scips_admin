@@ -23,7 +23,7 @@ class AgentMaster(models.Model):
         db_table = 'AgentMaster'
 
     def __str__(self):
-        # return str(self.master_code)
+        #return str(self.master_code)
         return str(self.id)  # updated so the the query will return the ID and send it in url 
 
 
@@ -46,7 +46,7 @@ class Agent(models.Model):
         return str(self.agent_no)
 
 #this is used to tell django where to go after it creates a agent
-#reverse will tells where to go to find the newly created URL
+#reverse will tells where to go to find the knewly created URL
 #kwargs={'pk':self.pk} find the created agent 
 #agent-detail is the route to go to to see the newly created instance
     def get_absolute_url(self):
