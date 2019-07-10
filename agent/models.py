@@ -29,7 +29,7 @@ class AgentMaster(models.Model):
 
 class Agent(models.Model):
     agent_no = models.PositiveIntegerField(unique=True)
-    agent_master_code = models.ForeignKey(AgentMaster, on_delete=models.CASCADE,related_name='agents')
+    agent_master_code = models.ForeignKey(AgentMaster, on_delete=models.CASCADE,related_name='subagents')
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
