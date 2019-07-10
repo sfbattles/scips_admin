@@ -1,5 +1,5 @@
 chardet==3.0.4
-Django==2.2.2
+Django==2.2.3
 django-crispy-forms==1.7.2
 django-csvimport==2.12
 django-phone-field==1.7.1
