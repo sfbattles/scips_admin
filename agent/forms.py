@@ -1,12 +1,18 @@
 from django.forms import ModelForm
-from agent.models import Agent, AgentPhone, AgentEmail, PhoneType
+from agent.models import Agent, AgentPhone, AgentEmail, PhoneType, AgentMaster
+
+class AgentMasterForm(ModelForm):
+    class Meta:
+        model = AgentMaster
+        # fields = ('__all__',)
+        fields = ('master_code',
+                  'name')
 
 class AgentForm(ModelForm):
     class Meta:
         model = Agent
         # fields = ('__all__',)
         fields = ('agent_no',
-              'agent_master_code',
               'name',
               'address',
               'city',

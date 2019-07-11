@@ -24,7 +24,7 @@ class AgentMaster(models.Model):
 
     def __str__(self):
         #return str(self.master_code)
-        return str(self.id)  # updated so the the query will return the ID and send it in url 
+        return str(self.id)  # updated so the query will return the ID and send it in url 
 
 
 class Agent(models.Model):

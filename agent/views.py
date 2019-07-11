@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404,redirect
+from django.template.context_processors import csrf
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (
                                     ListView,
@@ -93,7 +94,11 @@ class AgentDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 def about(request):
     return render(request,'agent/about.html')
 
+
+@login_required
 def new_agent(request):
+    print(request)
+    print("I am here")
     if request.method == "POST":
         agent_form = AgentForm(request.POST)
         agent_email_form = AgentEmailForm(request.POST)
@@ -118,5 +123,4 @@ def new_agent(request):
     args['agent_email_form'] = agent_email_form
     args['agent_phone_form'] = agent_phone_form
 
-    return render(request, 'new_agent.html', args)
-
+    return render(request, 'agent/new_agent.html', args)
