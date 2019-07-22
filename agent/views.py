@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404,redirect
+from django.urls import reverse
 from django.template.context_processors import csrf
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (
@@ -11,7 +12,7 @@ from django.views.generic import (
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Agent, AgentMaster, AgentEmail, AgentPhone
-from .forms import AgentForm, AgentEmailForm, AgentPhoneForm
+from .forms import AgentForm, AgentEmailForm, AgentPhoneForm, AgentMasterForm
 
 @login_required
 def home(request):
@@ -97,28 +98,36 @@ def about(request):
 
 @login_required
 def new_agent(request):
-    print(request)
-    print("I am here")
     if request.method == "POST":
+        agent_master_form = AgentMasterForm(request.POST)
         agent_form = AgentForm(request.POST)
         agent_email_form = AgentEmailForm(request.POST)
         agent_phone_form = AgentPhoneForm(request.POST)
-        if agent_form.is_valid() and agent_email_form.is_valid() and agent_phone_form.is_valid():
-            agent = agent_form.save()
+        if (agent_form.is_valid() and 
+            agent_email_form.is_valid() and 
+            agent_phone_form.is_valid() and 
+            agent_master_form.is_valid()):        
+
+            agent_master = agent_master_form.save()
+            agent = agent_form.save(False)
             agentphone = agent_phone_form.save(False)
             agentemail = agent_email_form.save(False)
+            agent.agent_master_code = agent_master
+            agent.save()
             agentemail.agent_no = agent
-            agentphone.agent_no = agent
+            agentphone.agent_no = agent            
             agentemail.save()
-            agentphone.save()
-            return redirect(reverse('agent.views.AgentListView'))
+            agentphone.save()                        
+            return redirect(reverse('agent-new-agent'))
     else:
+        agent_master_form = AgentMasterForm()
         agent_form = AgentForm()  #creates an instance of the agent_form
         agent_email_form = AgentEmailForm()
         agent_phone_form = AgentPhoneForm()
 
     args = {}
     args.update(csrf(request))
+    args['agent_master_form'] = agent_master_form
     args['agent_form'] = agent_form
     args['agent_email_form'] = agent_email_form
     args['agent_phone_form'] = agent_phone_form

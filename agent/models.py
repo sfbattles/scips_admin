@@ -24,7 +24,7 @@ class AgentMaster(models.Model):
 
     def __str__(self):
         #return str(self.master_code)
-        return str(self.id)  # updated so the query will return the ID and send it in url 
+        return str(self.id) # updated so the query will return the ID and send it in url 
 
 
 class Agent(models.Model):
@@ -52,6 +52,34 @@ class Agent(models.Model):
     def get_absolute_url(self):
         return reverse('agent-detail',kwargs={'pk':self.pk})
 
+
+class AgentName(models.Model)
+    agent_no = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    class Meta:
+        verbose_name = "AgentName"
+        verbose_name_plural = "AgentName"
+        db_table = 'AgentName'
+
+    def __str__(self):
+        return str(self.agent_no)
+
+
+class AgentAddress(models.Model)
+    agent_no = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    address = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=9)
+
+    class Meta:
+        verbose_name = "AgentAddress"
+        verbose_name_plural = "AgentAddresses"
+        db_table = 'AgentAddress'
+
+    def __str__(self):
+        return str(self.agent_no)
+
 class AgentPhone(models.Model):
     agent_no = models.ForeignKey(Agent, on_delete=models.CASCADE)
     phone    = models.CharField(max_length=11,null=True,blank=True)
@@ -74,7 +102,7 @@ class AgentEmail(models.Model):
 
     class Meta:
         verbose_name = "AgentEmail"
-        verbose_name_plural = "AgentMails"
+        verbose_name_plural = "AgentEmails"
         db_table = 'AgentEmail'
 
     def __str__(self):

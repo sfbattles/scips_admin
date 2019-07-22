@@ -13,7 +13,7 @@ class UserAccess(models.Model):
         db_table = 'UserAccess'
 
     def __str__(self):
-        return f'{self.access_level}  {self.description}'
+        return f'{self.access_level} {self.description}'
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
