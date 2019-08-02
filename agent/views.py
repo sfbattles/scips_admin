@@ -106,9 +106,12 @@ def new_agent(request):
         if (agent_form.is_valid() and 
             agent_email_form.is_valid() and 
             agent_phone_form.is_valid() and 
-            agent_master_form.is_valid()):        
-
-            agent_master = agent_master_form.save()
+            agent_master_form.is_valid()):   
+                
+            agent_master_code = request.POST.get('master_code',default=None)
+            print(f"this is the master code {agent_master_code} ")
+            agent_master = AgentMaster.objects.get(pk=agent_master_code)   
+            # agent_master.save()
             agent = agent_form.save(False)
             agentphone = agent_phone_form.save(False)
             agentemail = agent_email_form.save(False)

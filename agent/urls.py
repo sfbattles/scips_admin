@@ -1,4 +1,5 @@
-from django.urls import path
+from django.conf import settings
+from django.urls import path,include
 from . import views
 from .views import (
     AgentListView,
@@ -8,6 +9,8 @@ from .views import (
     AgentDeleteView,
     MasterAgentDetailView
 )
+
+
 
 urlpatterns = [
     # class base view need be converted into a view in order to be displayed.
@@ -20,5 +23,14 @@ urlpatterns = [
     path('agent/<int:pk>/delete/', AgentDeleteView.as_view(), name='agent-delete'),    
     path('home/', views.new_agent, name="agent-new-agent"),
     path('about/', views.about, name="agent-about"),
-
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+        # For django versions before 2.0:
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
