@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from django.urls import reverse
+from django.urls import reverse 
+from django.forms import modelformset_factory
+
 from django.template.context_processors import csrf
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (
@@ -13,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Agent, AgentMaster, AgentEmail, AgentPhone
 from .forms import AgentForm, AgentEmailForm, AgentPhoneForm, AgentMasterForm
+
 
 @login_required
 def home(request):
@@ -94,6 +97,24 @@ class AgentDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 @login_required
 def about(request):
     return render(request,'agent/about.html')
+
+@login_required
+def agentphone(request, agent_id):
+    theagent = Agent.objects.get(pk=agent_id)
+    print(theagent.id)
+    # AgentPhoneFormSet = modelformset_factory(AgentPhone, fields=('phone','phone_extension','phone_type',),extra=1)
+    AgentPhoneFormSet = modelformset_factory(AgentPhone, fields=('phone','phone_extension','phone_type'),extra=1)
+
+    # if request.method == 'POST':
+    #     formset = AgentPhoneFormSet(request.POST,queryset=AgentPhone.objects.filter(agent__id=agent.id))
+    #     if formset.is_valid():
+    #         instances = formset.save(commit=False)
+    #         for instance in instances:
+    #             instance.agent_id == agent.id    
+    #             instance.save()
+    #         return redirect('aboutphone', agent_id=agent.id)
+    formset = AgentPhoneFormSet(queryset=AgentPhone.objects.filter(agent_no_id=theagent.id))
+    return render(request,'agent/agentphone.html', {'form' : formset})
 
 
 @login_required

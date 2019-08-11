@@ -22,6 +22,7 @@ urlpatterns = [
     path('agent/<int:pk>/delete/', AgentDeleteView.as_view(), name='agent-delete'),    
     path('home/', views.new_agent, name="agent-new-agent"),
     path('about/', views.about, name="agent-about"),
+    path('agentphone/<int:agent_id>/', views.agentphone, name="agent-phone")
 ]
 
 if settings.DEBUG:

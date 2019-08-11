@@ -2,14 +2,18 @@
 {% load crispy_forms_tags %}
 {% block content %}
     {% csrf_token %}
-    <h1>About Page</h1>
+    <h1>Agent Phone</h1>
     <!-- <a class="related-widget-wrapper-link change-related" id="change_id_agent_master_code"
     data-href-template="/admin/agent/agentmaster/__fk__/change/?_to_field=id&amp;_popup=1"
     title="Change selected AgentMaster"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_agent_master_code"
     href="/admin/agent/agentmaster/add/?_to_field=id&amp;_popup=1"
     title="Add another AgentMaster"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a> -->
-    <div class="col-md-6">
-      {{ form|crispy }} 
-     
-    </div>
+    <form method="post">
+        {% csrf_token %}
+         {{ form| crispy }}
+
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+
+
 {% endblock content %}
