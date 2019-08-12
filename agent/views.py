@@ -101,19 +101,21 @@ def about(request):
 @login_required
 def agentphone(request, agent_id):
     theagent = Agent.objects.get(pk=agent_id)
-    print(theagent.id)
-    # AgentPhoneFormSet = modelformset_factory(AgentPhone, fields=('phone','phone_extension','phone_type',),extra=1)
     AgentPhoneFormSet = modelformset_factory(AgentPhone, fields=('phone','phone_extension','phone_type'),extra=1)
-
-    # if request.method == 'POST':
-    #     formset = AgentPhoneFormSet(request.POST,queryset=AgentPhone.objects.filter(agent__id=agent.id))
-    #     if formset.is_valid():
-    #         instances = formset.save(commit=False)
-    #         for instance in instances:
-    #             instance.agent_id == agent.id    
-    #             instance.save()
-    #         return redirect('aboutphone', agent_id=agent.id)
-    formset = AgentPhoneFormSet(queryset=AgentPhone.objects.filter(agent_no_id=theagent.id))
+    if request.method == 'POST':
+        formset = AgentPhoneFormSet(request.POST,
+                                    queryset=AgentPhone.objects.filter(agent_no__id=theagent.id))                           
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                print(f'This is instance { instance.agent_no_id }')
+                instance.agent_no_id = theagent.id
+                instance.save()
+            return redirect('agent-phone', agent_id=theagent.id)
+# the redirect agent-phone comes from the url.py name field  
+# the agent_id need to be there for the parameter being passed into this view.
+# =theagent.id is there because that is the phone number I have just modified. 
+    formset = AgentPhoneFormSet(queryset=AgentPhone.objects.filter(agent_no__id=theagent.id))
     return render(request,'agent/agentphone.html', {'form' : formset})
 
 
