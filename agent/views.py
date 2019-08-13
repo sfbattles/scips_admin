@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from django.urls import reverse 
-from django.forms import modelformset_factory
+from django.forms import modelformset_factory, inlineformset_factory
 
 from django.template.context_processors import csrf
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
@@ -100,22 +100,15 @@ def about(request):
 
 @login_required
 def agentphone(request, agent_id):
-    theagent = Agent.objects.get(pk=agent_id)
-    AgentPhoneFormSet = modelformset_factory(AgentPhone, fields=('phone','phone_extension','phone_type'),extra=1)
+    currentagent = Agent.objects.get(pk=agent_id)
+    AgentPhoneFormSet = inlineformset_factory(Agent,AgentPhone, fields=('phone','phone_extension','phone_type'), extra=1)
     if request.method == 'POST':
-        formset = AgentPhoneFormSet(request.POST,
-                                    queryset=AgentPhone.objects.filter(agent_no__id=theagent.id))                           
+        formset = AgentPhoneFormSet(request.POST,instance=currentagent)
         if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                print(f'This is instance { instance.agent_no_id }')
-                instance.agent_no_id = theagent.id
-                instance.save()
+            formset.save()
             return redirect('agent-phone', agent_id=theagent.id)
-# the redirect agent-phone comes from the url.py name field  
-# the agent_id need to be there for the parameter being passed into this view.
-# =theagent.id is there because that is the phone number I have just modified. 
-    formset = AgentPhoneFormSet(queryset=AgentPhone.objects.filter(agent_no__id=theagent.id))
+
+    formset = AgentPhoneFormSet(instance=currentagent)
     return render(request,'agent/agentphone.html', {'form' : formset})
 
 

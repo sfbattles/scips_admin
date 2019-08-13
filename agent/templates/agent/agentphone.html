@@ -15,6 +15,18 @@
         {{ form | crispy }}
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
+    <!-- <form method="post">
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <ul>
+                <li>{{ form.phone }}</li>
+                <li>{{ form.phone_extention }}</li>
+                {% if formset.can_delete %}
+                    <li>{{ form.DELETE }}</li>
+                {% endif %}
+            </ul>
+        {% endfor %} -->
+    </form>
 
 
 {% endblock content %}
