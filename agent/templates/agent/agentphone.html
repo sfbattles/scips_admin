@@ -1,43 +1,32 @@
 {% extends "agent/base.html" %}
 {% load crispy_forms_tags %}
-{% crispy form %}
-{% crispy formset %}
+<!-- {% crispy form %} -->
+<!-- {% crispy formset %} -->
 {% block content %}
     {% csrf_token %}
     <h1>Agent Phone</h1>
-    <!-- <a class="related-widget-wrapper-link change-related" id="change_id_agent_master_code"
-    data-href-template="/admin/agent/agentmaster/__fk__/change/?_to_field=id&amp;_popup=1"
-    title="Change selected AgentMaster"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_agent_master_code"
-    href="/admin/agent/agentmaster/add/?_to_field=id&amp;_popup=1"
-    title="Add another AgentMaster"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a> -->
-    <!-- <form method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form> -->
-    <form class="form-inline" method="post">
+    <form method="post">
         {{ formset.management_form }}
-        {% csrf_token %}
-            {% for form in formset %}
-                <div class="form-group mr-2">
-                    <!-- <label>Phone</label> -->
+        {% csrf_token %}            
+        {% for form in formset %}  
+            <div class="form-row">                              
+                <div class="form-group col-md-3 mb-2">
                     {{ form.phone|as_crispy_field }}
                 </div>
-                <div class="form-group mr-2">
-                    <label>Ext</label>
-                    {{ form.phone_extension }}
-                </div>
-                <div class="form-group mr-2">
-                    <label>Phone Type</label>
-                    {{ form.phone_type }}
-                </div>
-                <div class="form-group mr-2">
+                <div class="form-group col-md-2 mb-2">
+                    {{ form.phone_extension|as_crispy_field }}
+                </div>   
+                <div class="form-group col-md-2 mb-2">
+                    {{ form.phone_type|as_crispy_field }}
+                </div>  
+                <div class="form-group col-md-1 mt-5">
                     {% if formset.can_delete %}
-                        <label>Delete</label>
-                        {{ form.DELETE }}
-                    {% endif %}
-                </div>                     
-            {% endfor %}
-            <button type="submit" class="btn btn-primary">Update</button>
+                        {{ form.DELETE|as_crispy_field }}
+                    {% endif %}                     
+                </div>    
+                {% endfor %}
+        <div class="container">
+            <button type="submit" class="btn btn-primary">Update</button>        
+        </div>    
     </form>
 {% endblock content %}
