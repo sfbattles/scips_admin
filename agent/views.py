@@ -106,10 +106,10 @@ def agentphone(request, agent_id):
         formset = AgentPhoneFormSet(request.POST,instance=currentagent)
         if formset.is_valid():
             formset.save()
-            return redirect('agent-phone', agent_id=theagent.id)
-
-    formset = AgentPhoneFormSet(instance=currentagent)
-    return render(request,'agent/agentphone.html', {'form' : formset})
+            return redirect('agent-phone', agent_id=currentagent.id)
+    else:
+        formset = AgentPhoneFormSet(instance=currentagent)
+    return render(request,'agent/agentphone.html', {'formset' : formset})
 
 
 @login_required

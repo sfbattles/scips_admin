@@ -10,23 +10,34 @@
     title="Change selected AgentMaster"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_agent_master_code"
     href="/admin/agent/agentmaster/add/?_to_field=id&amp;_popup=1"
     title="Add another AgentMaster"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a> -->
-    <form method="post">
+    <!-- <form method="post">
         {% csrf_token %}
         {{ form | crispy }}
         <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-    <!-- <form method="post">
+    </form> -->
+    <form class="form-inline" method="post">
         {{ formset.management_form }}
-        {% for form in formset %}
-            <ul>
-                <li>{{ form.phone }}</li>
-                <li>{{ form.phone_extention }}</li>
-                {% if formset.can_delete %}
-                    <li>{{ form.DELETE }}</li>
-                {% endif %}
-            </ul>
-        {% endfor %} -->
+        {% csrf_token %}
+            {% for form in formset %}
+                <div class="form-group mr-2">
+                    <!-- <label>Phone</label> -->
+                    {{ form.phone|as_crispy_field }}
+                </div>
+                <div class="form-group mr-2">
+                    <label>Ext</label>
+                    {{ form.phone_extension }}
+                </div>
+                <div class="form-group mr-2">
+                    <label>Phone Type</label>
+                    {{ form.phone_type }}
+                </div>
+                <div class="form-group mr-2">
+                    {% if formset.can_delete %}
+                        <label>Delete</label>
+                        {{ form.DELETE }}
+                    {% endif %}
+                </div>                     
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Update</button>
     </form>
-
-
 {% endblock content %}
