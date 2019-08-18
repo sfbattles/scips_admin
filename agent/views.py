@@ -101,7 +101,7 @@ def about(request):
 @login_required
 def agentphone(request, agent_id):
     currentagent = Agent.objects.get(pk=agent_id)
-    AgentPhoneFormSet = inlineformset_factory(Agent,AgentPhone, fields=('phone','phone_extension','phone_type'), extra=1)
+    AgentPhoneFormSet = inlineformset_factory(Agent,AgentPhone, fields=('phone','phone_extension','phone_type'), extra=1, labels={'phone':"Phone",'phone_extension':'Extension','phone_type': 'Phone Type'})
     if request.method == 'POST':
         formset = AgentPhoneFormSet(request.POST,instance=currentagent)
         if formset.is_valid():

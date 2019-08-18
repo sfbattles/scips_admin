@@ -30,7 +30,7 @@ class AgentEmailForm(ModelForm):
         
         
 class AgentPhoneForm(ModelForm):
+    phone = forms.CharField(label='Your Phone')
     class Meta:
         model = AgentPhone
-        fields = ('phone','phone_extension','phone_type')
-        
+        fields = ('phone','phone_extension','phone_type')  
