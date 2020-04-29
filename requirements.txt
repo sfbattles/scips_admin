@@ -1,11 +1,13 @@
+asgiref==3.2.7
 chardet==3.0.4
 Django==3.0
-django-crispy-forms==1.7.2
+django-crispy-forms==1.8.1
 django-csvimport==2.12
+django-debug-toolbar==2.2
 django-phone-field==1.7.1
-mysql-connector-python==8.0.16
+mysql-connector-python==8.0.19
 mysqlclient==1.4.2.post1
-Pillow==6.2.1
+Pillow==7.0.0
 protobuf==3.8.0
 pytz==2019.1
 six==1.12.0

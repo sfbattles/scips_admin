@@ -71,7 +71,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'scips',
         'USER': 'root',
-        'PASSWORD': '12345678'
+        'PASSWORD': '123456'
     }
 }
 

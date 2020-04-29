@@ -1,5 +1,5 @@
 {% extends "agent/base.html" %}
-{% load crispy_forms_tags %} -->
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
         <form method="POST" action = "{% url 'agent-new-agent' %}">
@@ -12,8 +12,8 @@
                 {{ agent_phone_form|crispy }}
             </fieldset>
             <div class="form-group">
-            <div class="form-group">
-                {% if user.profile.user_access.access_level == 3 %}
+            <div class="form-group">`
+                {% if user.profile.user_access.access_level == 2 %}
                     <button class="btn btn-outline-info" type="submit">Save</button>
                     <a class="btn btn-outline-info btn-md mt-1 mb-1" href="javascript:history.go(-1)">Back</a>  
                 {% endif %}

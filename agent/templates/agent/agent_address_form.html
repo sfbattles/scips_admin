@@ -1,0 +1,33 @@
+{% extends "agent/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-3 mb-0">
+        {{ agent_form.agent_master_code|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-3 mb-0">
+        {{ agent_form.agent_no|as_crispy_field }}
+      </div>      
+      
+    </div>
+    {{ agent_form.name|as_crispy_field }}
+    
+    {{ agent_form.address|as_crispy_field }}
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        {{ agent_form.city|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-4 mb-0">
+        {{ agent_form.state|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-2 mb-0">
+        {{ agent_form.zipcode|as_crispy_field }}
+      </div> 
+    </div>
+    <button type="submit" class="btn btn-primary">Add Agent</button>
+  </form>
+{% endblock %}

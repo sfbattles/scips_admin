@@ -149,4 +149,5 @@ def new_agent(request):
     args['agent_email_form'] = agent_email_form
     args['agent_phone_form'] = agent_phone_form
 
-    return render(request, 'agent/new_agent.html', args)
+    # return render(request, 'agent/new_agent.html', args)
+    return render(request, 'agent/agent_address_form.html', args)
