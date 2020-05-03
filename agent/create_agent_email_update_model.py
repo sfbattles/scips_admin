@@ -3,7 +3,7 @@ from agent.models import AgentEmail
 
 import csv, os
 
-file_loc = '/Users/richl/dev/source/scips_admin/agent/agentemail.csv'
+file_loc = '/Users/richl/dev/source/document_portal_project/agent/agentemail.csv'
 print (file_loc)
 with open(file_loc, "r") as csvfile:
     reader = csv.DictReader(csvfile, delimiter="|")

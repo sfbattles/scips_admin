@@ -94,3 +94,7 @@ class AgentEmail(models.Model):
 
     def __str__(self):
         return str(self.email)
+
+class State(models.Model):
+    state_abbreviation = models.CharField(max_length = 2)
+    state = models.CharField(max_length=50)

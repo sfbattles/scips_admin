@@ -4,7 +4,7 @@ from agent.models import PhoneType
 
 import csv, os
 
-file_loc = '/Users/richl/dev/source/scips_admin/agent/agentphone.csv'
+file_loc = '/Users/richl/dev/source/document_portal_project/agent/agentphone.csv'
 print (file_loc)
 with open(file_loc, "r") as csvfile:
     reader = csv.DictReader(csvfile, delimiter="|")
