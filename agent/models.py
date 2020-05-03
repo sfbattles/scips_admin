@@ -52,6 +52,7 @@ class Agent(models.Model):
     def get_absolute_url(self):
         return reverse('agent-detail',kwargs={'pk':self.pk})
 
+
 class AgentAddress(models.Model):
     agent_no = models.ForeignKey(Agent, on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
@@ -98,3 +99,11 @@ class AgentEmail(models.Model):
 class State(models.Model):
     state_abbreviation = models.CharField(max_length = 2)
     state = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = "State"
+        verbose_name_plural = "States"
+        db_table = 'State'
+
+    def __str__(self):
+        return str(self.state)
